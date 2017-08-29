@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>66869274-a42b-4fae-bda6-88f5fe9eb9f0</ProjectGuid>
+    <ProjectGuid>{66869274-A42B-4FAE-BDA6-88F5FE9EB9F0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UMengPush</RootNamespace>
@@ -30,24 +30,39 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System"/>
-    
-    <Reference Include="System.Core"/>
-    <Reference Include="System.Xml.Linq"/>
-    <Reference Include="System.Data.DataSetExtensions"/>
-    
-    
-    <Reference Include="Microsoft.CSharp"/>
-    
-    <Reference Include="System.Data"/>
-    
-    <Reference Include="System.Net.Http"/>
-    
-    <Reference Include="System.Xml"/>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="umeng_php_sdk_v1.5.zip" />
+    <None Include="umeng_php_sdk_v1.5\php\README" />
+    <None Include="umeng_php_sdk_v1.5\php\release-notes" />
+    <None Include="umeng_php_sdk_v1.5\php\src\Demo.php" />
+    <None Include="umeng_php_sdk_v1.5\php\src\notification\AndroidNotification.php" />
+    <None Include="umeng_php_sdk_v1.5\php\src\notification\android\AndroidBroadcast.php" />
+    <None Include="umeng_php_sdk_v1.5\php\src\notification\android\AndroidCustomizedcast.php" />
+    <None Include="umeng_php_sdk_v1.5\php\src\notification\android\AndroidFilecast.php" />
+    <None Include="umeng_php_sdk_v1.5\php\src\notification\android\AndroidGroupcast.php" />
+    <None Include="umeng_php_sdk_v1.5\php\src\notification\android\AndroidListcast.php" />
+    <None Include="umeng_php_sdk_v1.5\php\src\notification\android\AndroidUnicast.php" />
+    <None Include="umeng_php_sdk_v1.5\php\src\notification\IOSNotification.php" />
+    <None Include="umeng_php_sdk_v1.5\php\src\notification\ios\IOSBroadcast.php" />
+    <None Include="umeng_php_sdk_v1.5\php\src\notification\ios\IOSCustomizedcast.php" />
+    <None Include="umeng_php_sdk_v1.5\php\src\notification\ios\IOSFilecast.php" />
+    <None Include="umeng_php_sdk_v1.5\php\src\notification\ios\IOSGroupcast.php" />
+    <None Include="umeng_php_sdk_v1.5\php\src\notification\ios\IOSListcast.php" />
+    <None Include="umeng_php_sdk_v1.5\php\src\notification\ios\IOSUnicast.php" />
+    <None Include="umeng_php_sdk_v1.5\php\src\notification\UmengNotification.php" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -57,5 +72,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-
- </Project>
+</Project>
