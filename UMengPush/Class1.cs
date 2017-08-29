@@ -8,6 +8,6 @@ namespace UMengPush
 {
     public class Class1
     {
-        adasd
+        
     }
 }
