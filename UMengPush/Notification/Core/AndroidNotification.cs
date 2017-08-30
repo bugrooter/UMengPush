@@ -7,13 +7,13 @@ namespace UMengPush.Notification.Core
     public abstract class AndroidNotification : UmengNotification
     {
         // Keys can be set in the payload level
-        protected static HashSet<String> PAYLOAD_KEYS = new HashSet<String>(new List<string>(new String[]{
-            "display_type"}));
+        protected static HashSet<String> PAYLOAD_KEYS = new HashSet<String>(new String[]{
+            "display_type"});
 
         // Keys can be set in the body level
-        protected static HashSet<String> BODY_KEYS = new HashSet<String>(new List<string>(new String[]{
+        protected static HashSet<String> BODY_KEYS = new HashSet<String>(new String[]{
             "ticker", "title", "text", "builder_id", "icon", "largeIcon", "img", "play_vibrate", "play_lights", "play_sound",
-            "sound", "after_open", "url", "activity", "custom"}));
+            "sound", "after_open", "url", "activity", "custom"});
 
         public enum DisplayType
         {
@@ -51,14 +51,13 @@ namespace UMengPush.Notification.Core
             if (ROOT_KEYS.Contains(key))
             {
                 // This key should be in the root level
-                //rootJson.Add(key, (JProperty)value);
-                rootJson.Add(new JProperty(key,value));
+                rootJson.Add(new JProperty(key, value));
             }
             else if (PAYLOAD_KEYS.Contains(key))
             {
                 // This key should be in the payload level
                 JObject payloadJson = null;
-                if (rootJson.Property("payload")!=null)
+                if (rootJson.Property("payload") != null)
                 {
                     payloadJson = (JObject)rootJson.Property("payload").Value;
                 }
@@ -76,7 +75,7 @@ namespace UMengPush.Notification.Core
                 JObject bodyJson = null;
                 JObject payloadJson = null;
                 // 'body' is under 'payload', so build a payload if it doesn't exist
-                if (rootJson.Property("payload")!=null)
+                if (rootJson.Property("payload") != null)
                 {
                     payloadJson = (JObject)rootJson.Property("payload").Value;
                 }
@@ -86,7 +85,7 @@ namespace UMengPush.Notification.Core
                     rootJson.Add("payload", payloadJson);
                 }
                 // Get body Newtonsoft.Json.JsonToken, generate one if not existed
-                if (payloadJson.Property("body")!=null)
+                if (payloadJson.Property("body") != null)
                 {
                     bodyJson = (JObject)payloadJson.Property("body").Value;
                 }
@@ -102,7 +101,7 @@ namespace UMengPush.Notification.Core
             {
                 // This key should be in the body level
                 JObject policyJson = null;
-                if (rootJson.Property("policy")!=null)
+                if (rootJson.Property("policy") != null)
                 {
                     policyJson = rootJson.Property("policy").Value as JObject;
                 }
@@ -133,7 +132,7 @@ namespace UMengPush.Notification.Core
         {
             JObject payloadJson = null;
             JObject extraJson = null;
-            if (rootJson.Property("payload")!=null)
+            if (rootJson.Property("payload") != null)
             {
                 payloadJson = rootJson.Property("payload").Value as JObject;
             }
@@ -143,7 +142,7 @@ namespace UMengPush.Notification.Core
                 rootJson.Add("payload", payloadJson);
             }
 
-            if (payloadJson.Property("extra")!=null)
+            if (payloadJson.Property("extra") != null)
             {
                 extraJson = payloadJson.Property("extra").Value as JObject;
             }
@@ -153,6 +152,7 @@ namespace UMengPush.Notification.Core
                 payloadJson.Add("extra", extraJson);
             }
             extraJson.Add(key, value);
+            //extraJson.Add(new JProperty(key, value));
             return true;
         }
 

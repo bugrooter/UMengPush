@@ -44,6 +44,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Notification\Core\IOSNotification.cs" />
+    <Compile Include="Notification\IOS\IOSBroadcast.cs" />
+    <Compile Include="Notification\IOS\IOSCustomizedcast.cs" />
+    <Compile Include="Notification\IOS\IOSFilecast.cs" />
+    <Compile Include="Notification\IOS\IOSGroupcast.cs" />
+    <Compile Include="Notification\IOS\IOSUnicast.cs" />
     <Compile Include="Push.cs" />
     <Compile Include="Notification\Android\AndroidBroadcast.cs" />
     <Compile Include="Notification\Android\AndroidCustomizedcast.cs" />
@@ -54,9 +60,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PushClient.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Notification\IOS\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Compile Include="Notification\Core\UmengNotification.cs" />
   </ItemGroup>

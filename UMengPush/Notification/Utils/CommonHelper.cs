@@ -44,8 +44,6 @@ namespace UMengPush.Notification.Utils
         /// <returns>System.String.</returns>
         public static string HttpPost(string posturl, string postData)
         {
-            //{"appkey":"59a40c13310c931fdb00007d","production_mode":"true","description":"评论提醒-UID:123","type":"broadcast","payload":{"display_type":"notification","body":{"title":"您的评论有回复","ticker":"您的评论有回复","text":"您的评论有回复咯。。。。。","custom":"comment-notify","after_open":"go_custom","play_vibrate":"false","play_sound":"false","play_lights":"false","builder_id":0}},"policy":{"expire_time":"2017-09-02 10:45:31"}}
-            //{"appkey":"59a40c13310c931fdb00007d","type":"broadcast","payload":{"body":{"ticker":"Android broadcast ticker","title":"中文的title","text":"Android broadcast text","after_open":"go_app"},"display_type":"notification","extra":{"test":"helloworld"}},"production_mode":"True","timestamp":"1504061831"}
             try
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(posturl);

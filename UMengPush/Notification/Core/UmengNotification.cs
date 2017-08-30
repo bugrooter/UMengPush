@@ -8,19 +8,18 @@ namespace UMengPush.Notification.Core
         // This JSONObject is used for constructing the whole request string.
         protected Newtonsoft.Json.Linq.JObject rootJson = new Newtonsoft.Json.Linq.JObject();
 
-
         // The app master secret
         protected String appMasterSecret;
 
         // Keys can be set in the root level
-        protected static HashSet<String> ROOT_KEYS = new HashSet<String>(new List<string>(new String[]{
+        protected static HashSet<String> ROOT_KEYS = new HashSet<String>(new String[]{
             "appkey", "timestamp", "type", "device_tokens", "alias", "alias_type", "file_id",
-            "filter", "production_mode", "feedback", "description", "thirdparty_id"}));
+            "filter", "production_mode", "feedback", "description", "thirdparty_id"});
 
         // Keys can be set in the policy level
-        protected static HashSet<String> POLICY_KEYS = new HashSet<String>(new List<string>(new String[]{
+        protected static HashSet<String> POLICY_KEYS = new HashSet<String>(new String[]{
             "start_time", "expire_time", "max_send_num"
-    }));
+        });
 
         // Set predefined keys in the rootJson, for extra keys(Android) or customized keys(IOS) please 
         // refer to corresponding methods in the subclass.

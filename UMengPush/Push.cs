@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UMengPush.Notification.Android;
+using UMengPush.Notification.IOS;
 using static UMengPush.Notification.Core.AndroidNotification;
 
 namespace UMengPush
@@ -29,6 +30,7 @@ namespace UMengPush
             }
         }
 
+        #region Android
         public void sendAndroidBroadcast()
         {
             AndroidBroadcast broadcast = new AndroidBroadcast(appkey, appMasterSecret);
@@ -153,5 +155,99 @@ namespace UMengPush
             client.send(filecast);
         }
 
+        #endregion
+
+        #region IOS
+
+        public void sendIOSBroadcast()
+        {
+            IOSBroadcast broadcast = new IOSBroadcast(appkey, appMasterSecret);
+
+            broadcast.setAlert("IOS 广播测试");
+            broadcast.setBadge(0);
+            broadcast.setSound("default");
+            // TODO set 'production_mode' to 'true' if your app is under production mode
+            broadcast.setTestMode();
+            // Set customized fields
+            broadcast.setCustomizedField("test", "helloworld");
+            client.send(broadcast);
+        }
+
+        public void sendIOSUnicast()
+        {
+            IOSUnicast unicast = new IOSUnicast(appkey, appMasterSecret);
+            // TODO Set your device token
+            unicast.setDeviceToken("xx");
+            unicast.setAlert("IOS 单播测试");
+            unicast.setBadge(0);
+            unicast.setSound("default");
+            // TODO set 'production_mode' to 'true' if your app is under production mode
+            unicast.setTestMode();
+            // Set customized fields
+            unicast.setCustomizedField("test", "helloworld");
+            client.send(unicast);
+        }
+
+        public void sendIOSGroupcast()
+        {
+            IOSGroupcast groupcast = new IOSGroupcast(appkey, appMasterSecret);
+            /*  TODO
+             *  Construct the filter condition:
+             *  "where": 
+             *	{
+             *		"and": 
+             *		[
+             *			{"tag":"iostest"}
+             *		]
+             *	}
+             */
+            JObject filterJson = new JObject();
+            JObject whereJson = new JObject();
+            JArray tagArray = new JArray();
+            JObject testTag = new JObject();
+            testTag.Add("tag", "iostest");
+            tagArray.Add(testTag);
+            whereJson.Add("and", tagArray);
+            filterJson.Add("where", whereJson);
+
+            // Set filter condition into rootJson
+            groupcast.setFilter(filterJson);
+            groupcast.setAlert("IOS 组播测试");
+            groupcast.setBadge(0);
+            groupcast.setSound("default");
+            // TODO set 'production_mode' to 'true' if your app is under production mode
+            groupcast.setTestMode();
+            client.send(groupcast);
+        }
+
+        public void sendIOSCustomizedcast()
+        {
+            IOSCustomizedcast customizedcast = new IOSCustomizedcast(appkey, appMasterSecret);
+            // TODO Set your alias and alias_type here, and use comma to split them if there are multiple alias.
+            // And if you have many alias, you can also upload a file containing these alias, then 
+            // use file_id to send customized notification.
+            customizedcast.setAlias("alias", "alias_type");
+            customizedcast.setAlert("IOS 个性化测试");
+            customizedcast.setBadge(0);
+            customizedcast.setSound("default");
+            // TODO set 'production_mode' to 'true' if your app is under production mode
+            customizedcast.setTestMode();
+            client.send(customizedcast);
+        }
+
+        public void sendIOSFilecast()
+        {
+            IOSFilecast filecast = new IOSFilecast(appkey, appMasterSecret);
+            // TODO upload your device tokens, and use '\n' to split them if there are multiple tokens 
+            String fileId = client.uploadContents(appkey, appMasterSecret, "aa" + "\n" + "bb");
+            filecast.setFileId(fileId);
+            filecast.setAlert("IOS 文件播测试");
+            filecast.setBadge(0);
+            filecast.setSound("default");
+            // TODO set 'production_mode' to 'true' if your app is under production mode
+            filecast.setTestMode();
+            client.send(filecast);
+        }
+        #endregion
     }
 }
