@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMengPush", "UMengPush\UMengPush.csproj", "{66869274-A42B-4FAE-BDA6-88F5FE9EB9F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApplication1", "ConsoleApplication1\ConsoleApplication1.csproj", "{35FA01D5-D7ED-4951-ACEA-55667F8FF957}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UMengPushTest", "UMengPushTest\UMengPushTest.csproj", "{35FA01D5-D7ED-4951-ACEA-55667F8FF957}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
