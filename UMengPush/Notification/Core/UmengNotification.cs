@@ -33,17 +33,17 @@ namespace UMengPush.Notification.Core
 
         public String getPostBody()
         {
-            return rootJson.ToString();
+            return Newtonsoft.Json.JsonConvert.SerializeObject(rootJson);
         }
 
-        protected String getAppMasterSecret()
+        public String getAppMasterSecret()
         {
             return appMasterSecret;
         }
 
-        protected void setProductionMode(Boolean prod)
+        public void setProductionMode(Boolean prod)
         {
-            setPredefinedKeyValue("production_mode", prod.ToString());
+            setPredefinedKeyValue("production_mode", prod.ToString().ToLower());
         }
 
         ///正式模式

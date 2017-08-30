@@ -20,7 +20,22 @@ namespace UMengPush.Notification.Core
             NOTIFICATION,///通知:消息送达到用户设备后，由友盟SDK接管处理并在通知栏上显示通知内容。
             MESSAGE
         };///消息:消息送达到用户设备后，消息内容透传给应用自身进行解析处理。
-        public abstract String getValue();
+
+        public string GetDisplayTypeValue(DisplayType type)
+        {
+            switch (type)
+            {
+                case DisplayType.NOTIFICATION:
+                    return "notification";
+                    break;
+                case DisplayType.MESSAGE:
+                    return "message";
+                    break;
+                default:
+                    return "";
+                    break;
+            }
+        }
 
         public enum AfterOpenAction
         {
@@ -36,64 +51,68 @@ namespace UMengPush.Notification.Core
             if (ROOT_KEYS.Contains(key))
             {
                 // This key should be in the root level
-                rootJson.Add(key, (JToken)value);
+                //rootJson.Add(key, (JProperty)value);
+                rootJson.Add(new JProperty(key,value));
             }
             else if (PAYLOAD_KEYS.Contains(key))
             {
                 // This key should be in the payload level
-                Newtonsoft.Json.Linq.JObject payloadJson = null;
-                if (rootJson.GetValue("payload")!=null)
+                JObject payloadJson = null;
+                if (rootJson.Property("payload")!=null)
                 {
-                    payloadJson = rootJson.GetValue("payload");
+                    payloadJson = (JObject)rootJson.Property("payload").Value;
                 }
                 else
                 {
-                    payloadJson = new Newtonsoft.Json.Linq.JObject();
+                    payloadJson = new JObject();
                     rootJson.Add("payload", payloadJson);
                 }
-                payloadJson.Add(key, value);
+                //payloadJson.Add(key, (JToken)value);
+                payloadJson.Add(new JProperty(key, value));
             }
-            else if (BODY_KEYS.contains(key))
+            else if (BODY_KEYS.Contains(key))
             {
                 // This key should be in the body level
-                Newtonsoft.Json.JsonToken bodyJson = new Newtonsoft.Json.JsonToken();
-                Newtonsoft.Json.JsonToken payloadJson = new Newtonsoft.Json.JsonToken();
+                JObject bodyJson = null;
+                JObject payloadJson = null;
                 // 'body' is under 'payload', so build a payload if it doesn't exist
-                if (rootJson.has("payload"))
+                if (rootJson.Property("payload")!=null)
                 {
-                    payloadJson = rootJson.getNewtonsoft.Json.JsonToken("payload");
+                    payloadJson = (JObject)rootJson.Property("payload").Value;
                 }
                 else
                 {
-                    payloadJson = new Newtonsoft.Json.JsonToken();
-                    rootJson.put("payload", payloadJson);
+                    payloadJson = new JObject();
+                    rootJson.Add("payload", payloadJson);
                 }
                 // Get body Newtonsoft.Json.JsonToken, generate one if not existed
-                if (payloadJson.has("body"))
+                if (payloadJson.Property("body")!=null)
                 {
-                    bodyJson = payloadJson.getNewtonsoft.Json.JsonToken("body");
+                    bodyJson = (JObject)payloadJson.Property("body").Value;
                 }
                 else
                 {
-                    bodyJson = new Newtonsoft.Json.JsonToken();
-                    payloadJson.put("body", bodyJson);
+                    bodyJson = new JObject();
+                    payloadJson.Add("body", bodyJson);
                 }
-                bodyJson.put(key, value);
+                //bodyJson.Add(key, (JToken)value);
+                bodyJson.Add(new JProperty(key, value));
             }
-            else if (POLICY_KEYS.contains(key))
+            else if (POLICY_KEYS.Contains(key))
             {
                 // This key should be in the body level
-                Newtonsoft.Json.JsonToken policyJson = null;
-                if (rootJson.has("policy"))
+                JObject policyJson = null;
+                if (rootJson.Property("policy")!=null)
                 {
-                    policyJson = rootJson.getNewtonsoft.Json.JsonToken("policy");
+                    policyJson = rootJson.Property("policy").Value as JObject;
                 }
                 else
                 {
-                    policyJson = new Newtonsoft.Json.JsonToken();
-                    rootJson.put("policy", policyJson);
+                    policyJson = new JObject();
+                    rootJson.Add("policy", policyJson);
                 }
-                policyJson.put(key, value);
+                //policyJson.Add(key, (JToken)value);
+                policyJson.Add(new JProperty(key, value));
             }
             else
             {
@@ -110,37 +129,37 @@ namespace UMengPush.Notification.Core
         }
 
         // Set extra key/value for Android notification
-        public boolean setExtraField(String key, String value)
+        public bool setExtraField(String key, String value)
         {
-            Newtonsoft.Json.JsonToken payloadJson = null;
-            Newtonsoft.Json.JsonToken extraJson = null;
-            if (rootJson.has("payload"))
+            JObject payloadJson = null;
+            JObject extraJson = null;
+            if (rootJson.Property("payload")!=null)
             {
-                payloadJson = rootJson.getNewtonsoft.Json.JsonToken("payload");
+                payloadJson = rootJson.Property("payload").Value as JObject;
             }
             else
             {
-                payloadJson = new Newtonsoft.Json.JsonToken();
-                rootJson.put("payload", payloadJson);
+                payloadJson = new JObject();
+                rootJson.Add("payload", payloadJson);
             }
 
-            if (payloadJson.has("extra"))
+            if (payloadJson.Property("extra")!=null)
             {
-                extraJson = payloadJson.getNewtonsoft.Json.JsonToken("extra");
+                extraJson = payloadJson.Property("extra").Value as JObject;
             }
             else
             {
-                extraJson = new Newtonsoft.Json.JsonToken();
-                payloadJson.put("extra", extraJson);
+                extraJson = new JObject();
+                payloadJson.Add("extra", extraJson);
             }
-            extraJson.put(key, value);
+            extraJson.Add(key, value);
             return true;
         }
 
         //
         public void setDisplayType(DisplayType d)
         {
-            setPredefinedKeyValue("display_type", d.getValue());
+            setPredefinedKeyValue("display_type", GetDisplayTypeValue(d));
         }
         ///通知栏提示文字
         public void setTicker(String ticker)
@@ -158,7 +177,7 @@ namespace UMengPush.Notification.Core
             setPredefinedKeyValue("text", text);
         }
         ///用于标识该通知采用的样式。使用该参数时, 必须在SDK里面实现自定义通知栏样式。
-        public void setBuilderId(Integer builder_id)
+        public void setBuilderId(int builder_id)
         {
             setPredefinedKeyValue("builder_id", builder_id);
         }
@@ -180,17 +199,17 @@ namespace UMengPush.Notification.Core
         ///收到通知是否震动,默认为"true"
         public void setPlayVibrate(Boolean play_vibrate)
         {
-            setPredefinedKeyValue("play_vibrate", play_vibrate.ToString());
+            setPredefinedKeyValue("play_vibrate", play_vibrate.ToString().ToLower());
         }
         ///收到通知是否闪灯,默认为"true"
         public void setPlayLights(Boolean play_lights)
         {
-            setPredefinedKeyValue("play_lights", play_lights.ToString());
+            setPredefinedKeyValue("play_lights", play_lights.ToString().ToLower());
         }
         ///收到通知是否发出声音,默认为"true"
         public void setPlaySound(Boolean play_sound)
         {
-            setPredefinedKeyValue("play_sound", play_sound.ToString());
+            setPredefinedKeyValue("play_sound", play_sound.ToString().ToLower());
         }
         ///通知声音，R.raw.[sound]. 如果该字段为空，采用SDK默认的声音
         public void setSound(String sound)
@@ -224,7 +243,7 @@ namespace UMengPush.Notification.Core
             setAfterOpenAction(AfterOpenAction.go_custom);
             setCustomField(custom);
         }
-        public void goCustomAfterOpen(Newtonsoft.Json.JsonToken custom)
+        public void goCustomAfterOpen(JObject custom)
         {
             setAfterOpenAction(AfterOpenAction.go_custom);
             setCustomField(custom);
@@ -248,7 +267,7 @@ namespace UMengPush.Notification.Core
         {
             setPredefinedKeyValue("custom", custom);
         }
-        public void setCustomField(Newtonsoft.Json.JsonToken custom)
+        public void setCustomField(JObject custom)
         {
             setPredefinedKeyValue("custom", custom);
         }
