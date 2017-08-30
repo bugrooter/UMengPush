@@ -44,7 +44,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="Notification\Utils\CommonHelper.cs" />
     <Compile Include="Notification\Utils\MD5CryptionUMeng.cs" />
     <Compile Include="Notification\Utils\SerializableDictionary.cs" />
@@ -52,7 +51,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="umeng_php_sdk_v1.5.zip" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Notification\Android\" />
