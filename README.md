@@ -3,4 +3,4 @@
 
 本项目根据友盟官网java SDK翻译成DoNet版本
 
-文档链接（http://dev.umeng.com/push/android/api-doc）
+文档链接（http://dev.umeng.com/push/android/integration）
