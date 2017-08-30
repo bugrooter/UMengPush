@@ -30,6 +30,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,7 +44,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="Notification\Utils\CommonHelper.cs" />
+    <Compile Include="Notification\Utils\MD5CryptionUMeng.cs" />
+    <Compile Include="Notification\Utils\SerializableDictionary.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="umeng_php_sdk_v1.5.zip" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Notification\Android\" />
+    <Folder Include="Notification\IOS\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Notification\Core\UmengNotification.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Notification\Core\AndroidNotification.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
