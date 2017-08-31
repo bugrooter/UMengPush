@@ -52,19 +52,20 @@ namespace UMengPush
             AndroidUnicast unicast = new AndroidUnicast(appkey, appMasterSecret);
             // TODO Set your device token
             unicast.setDeviceToken("Au4-bW9SEEVf5P0jf7uCjcooyTJQIvIcL07zVak8FShU");
-            unicast.setTicker("Android unicast ticker");
-            unicast.setTitle("中文的title");
-            unicast.setText("Android unicast text");
+            unicast.setTicker("新版升级");
+            unicast.setTitle("悠骑单车升级");
+            unicast.setText("有新版本可下载");
+            unicast.setStartTime("");
             //unicast.goAppAfterOpen();
             //unicast.setCustomField("aaaa");
-            unicast.goUrlAfterOpen("https://www.baidu.com/home/news/data/newspage?nid=11970774722058126857&n_type=0&p_from=1&dtype=-1");
+            unicast.goUrlAfterOpen("http://qr27.cn/CvuDSO");
             unicast.setDisplayType(DisplayType.NOTIFICATION);
             //unicast.setStartTime();
             // TODO Set 'production_mode' to 'false' if it's a test device. 
             // For how to register a test device, please see the developer doc.
             unicast.setProductionMode();
             // Set customized fields
-            unicast.setExtraField("test", "helloworld");
+            //unicast.setExtraField("test", "helloworld");
             client.send(unicast);
         }
 

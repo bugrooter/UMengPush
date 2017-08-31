@@ -48,6 +48,10 @@ namespace UMengPush.Notification.Core
         // BODY_KEYS and POLICY_KEYS.
         public override bool setPredefinedKeyValue(String key, Object value)
         {
+            if (string.IsNullOrEmpty(value + ""))
+            {
+                return false;
+            }
             if (ROOT_KEYS.Contains(key))
             {
                 // This key should be in the root level

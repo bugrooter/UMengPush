@@ -62,7 +62,7 @@ namespace UMengPush
                 msg.setPredefinedKeyValue("timestamp", timestamp);
                 String url = host + postPath;
                 String postBody = msg.getPostBody();
-                String sign = CommonHelper.GetMD5(("POST" + url + postBody + msg.getAppMasterSecret()));
+                String sign = CommonHelper.GetMD5("POST" + url + postBody + msg.getAppMasterSecret());
                 url = url + "?sign=" + sign;
                 string result = CommonHelper.HttpPost(url, postBody);
                 //{"appkey":"59a40c13310c931fdb00007d","type":"broadcast","payload":{"aps":{"alert":"IOS 广播测试","badge":0,"sound":"default"},"test":"helloworld"},"production_mode":"false","timestamp":"1504150488"}

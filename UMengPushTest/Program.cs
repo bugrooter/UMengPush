@@ -13,8 +13,8 @@ namespace ConsoleApplication1
         static void Main(string[] args)
         {
             Push app = new Push("59a40c13310c931fdb00007d", "tnysp39gh6nhphc3ml8axxjh0wyrhnmq");
-            //app.sendAndroidBroadcast();
-            app.sendIOSBroadcast();
+            app.sendAndroidUnicast();
+            //app.sendIOSBroadcast();
             /* TODO these methods are all available, just fill in some fields and do the test
              * demo.sendAndroidCustomizedcastFile();
              * demo.sendAndroidBroadcast();

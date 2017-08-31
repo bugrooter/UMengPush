@@ -15,6 +15,10 @@ namespace UMengPush.Notification.Core
 
         public override bool setPredefinedKeyValue(String key, Object value)
         {
+            if (string.IsNullOrEmpty(value + ""))
+            {
+                return false;
+            }
             if (ROOT_KEYS.Contains(key))
             {
                 // This key should be in the root level
