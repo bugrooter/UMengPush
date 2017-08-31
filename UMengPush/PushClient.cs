@@ -11,7 +11,7 @@ namespace UMengPush
         protected String USER_AGENT = "Mozilla/5.0";
 
         // The host
-        protected static String host = "http://msg.umeng.com";
+        protected static String host = "https://msgapi.umeng.com";//"https://msg.umeng.com";
 
         // The upload path
         protected static String uploadPath = "/upload";
@@ -19,17 +19,59 @@ namespace UMengPush
         // The post path
         protected static String postPath = "/api/send";
 
-        public bool send(UmengNotification msg)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="msg"></param>
+        /// <param name="msgcode">成功时返回msg_id,失败时返回error_code</param>
+        /// <returns></returns>
+        public bool send(UmengNotification msg, out string msgcode)
         {
-            String timestamp = CommonHelper.DateTimeToUnix(DateTime.Now).ToString();
-            msg.setPredefinedKeyValue("timestamp", timestamp);
-            String url = host + postPath;
-            String postBody = msg.getPostBody();
-            String sign = CommonHelper.GetMD5(("POST" + url + postBody + msg.getAppMasterSecret()));
-            url = url + "?sign=" + sign;
-            string result = CommonHelper.HttpPost(url, postBody);
+            msgcode = "";
+            try
+            {
+                String timestamp = CommonHelper.DateTimeToUnix(DateTime.Now).ToString();
+                msg.setPredefinedKeyValue("timestamp", timestamp);
+                String url = host + postPath;
+                String postBody = msg.getPostBody();
+                String sign = CommonHelper.GetMD5(("POST" + url + postBody + msg.getAppMasterSecret()));
+                url = url + "?sign=" + sign;
+                string result = CommonHelper.HttpPost(url, postBody);
+                JObject o = JObject.Parse(result);
+                if (o["ret"].ToString().ToUpper() == "SUCCESS")
+                {
+                    msgcode = o["data"]["msg_id"] + "";
+                    return true;
+                }
+                msgcode = o["data"]["error_code"] + "";
+                //{\"ret\":\"SUCCESS\",\"data\":{\"msg_id\":\"uulpdgx150407757019600\"}}
+                return false;
+            }
+            catch (Exception ex)
+            {
+                msgcode = ex.Message;
+                return false;
+            }
+        }
 
-            return true;
+        public string send(UmengNotification msg)
+        {
+            try
+            {
+                String timestamp = CommonHelper.DateTimeToUnix(DateTime.Now).ToString();
+                msg.setPredefinedKeyValue("timestamp", timestamp);
+                String url = host + postPath;
+                String postBody = msg.getPostBody();
+                String sign = CommonHelper.GetMD5(("POST" + url + postBody + msg.getAppMasterSecret()));
+                url = url + "?sign=" + sign;
+                string result = CommonHelper.HttpPost(url, postBody);
+                //{"appkey":"59a40c13310c931fdb00007d","type":"broadcast","payload":{"aps":{"alert":"IOS 广播测试","badge":0,"sound":"default"},"test":"helloworld"},"production_mode":"false","timestamp":"1504150488"}
+                return result;
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
         }
 
         // Upload file with device_tokens to Umeng

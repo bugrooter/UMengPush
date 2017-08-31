@@ -14,7 +14,6 @@ namespace UMengPush
     {
         private String appkey = null;
         private String appMasterSecret = null;
-        private String timestamp = null;
         private PushClient client = new PushClient();
 
         public Push(String key, String secret)
@@ -37,6 +36,7 @@ namespace UMengPush
             broadcast.setTicker("Android broadcast ticker");
             broadcast.setTitle("中文的title");
             broadcast.setText("Android broadcast text");
+            broadcast.setStartTime(null+"");
             broadcast.goAppAfterOpen();
             broadcast.setDisplayType(DisplayType.NOTIFICATION);
             // TODO Set 'production_mode' to 'false' if it's a test device. 
@@ -55,8 +55,11 @@ namespace UMengPush
             unicast.setTicker("Android unicast ticker");
             unicast.setTitle("中文的title");
             unicast.setText("Android unicast text");
-            unicast.goAppAfterOpen();
+            //unicast.goAppAfterOpen();
+            //unicast.setCustomField("aaaa");
+            unicast.goUrlAfterOpen("https://www.baidu.com/home/news/data/newspage?nid=11970774722058126857&n_type=0&p_from=1&dtype=-1");
             unicast.setDisplayType(DisplayType.NOTIFICATION);
+            //unicast.setStartTime();
             // TODO Set 'production_mode' to 'false' if it's a test device. 
             // For how to register a test device, please see the developer doc.
             unicast.setProductionMode();
@@ -158,7 +161,6 @@ namespace UMengPush
         #endregion
 
         #region IOS
-
         public void sendIOSBroadcast()
         {
             IOSBroadcast broadcast = new IOSBroadcast(appkey, appMasterSecret);
